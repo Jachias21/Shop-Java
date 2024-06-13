@@ -126,10 +126,12 @@ public class Shop {
    while(miLinea != null) {
 	   String[] partes1 = miLinea.split(";");
 	   String product="";
+	   String origin="";
 	   Double wholesalerPrice = 0.00;
 	   Amount amount = new Amount(0.00, "€"); 
 	   int stock = 0;
 	   boolean available = true;
+	   boolean deluxe = false;
 	   
 	   for(int i = 0; i < partes1.length; i++) {
 		   String[] partes2 = partes1[i].split(":");
@@ -138,22 +140,27 @@ public class Shop {
 			   product = partes2[1];
 			   break;
 		   case 1:
+			   origin = partes2[1];
+			   break;
+		   case 2:
 			   wholesalerPrice = Double.parseDouble(partes2[1]);
 			   amount = new Amount(wholesalerPrice, "€");
 			   break;
-		   case 2:
+		   case 3:
 			   available = Boolean.parseBoolean(partes2[1]);
 			   break;
-
-		   case 3:
+		   case 4:
 			   stock = Integer.parseInt(partes2[1]);
+			   break;
+		   case 5:
+			   deluxe = Boolean.parseBoolean(partes2[1]);
 			   break;
 		   default:
 			   break;
 		   }
 		   
 	   }
-	   Product outproduct = new Product(product, amount, available, stock);
+	   Product outproduct = new Product(product, origin, amount, available, stock, deluxe);
 	   inventory.add(outproduct);
 	   miLinea = br.readLine();
    }
@@ -180,20 +187,25 @@ public class Shop {
             System.out.println("No se pueden añadir más productos");
             return;
         }
-
+        boolean deluxe = false; 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Nombre: ");
         String name = scanner.nextLine();
+        System.out.println("Origen: ");
+        String origin = scanner.nextLine();
 
         boolean product = productExists(name);
 
         if (!product) {
             System.out.print("Precio mayorista: ");
             double wholesalerPrice = scanner.nextDouble();
+            if (wholesalerPrice > 100) {
+            	 deluxe = true; 
+            }
             System.out.print("Stock: ");
             int stock = scanner.nextInt();
 
-            inventory.add(new Product(name, new Amount(wholesalerPrice, "€"), true, stock));
+            inventory.add(new Product(name, origin, new Amount(wholesalerPrice, "€"), true, stock, deluxe));
             numberProducts++;
         } else {
             System.out.print("\nEl producto ya existe en el inventario. Seleccione la opción '3. Añadir Stock'.\n\n");

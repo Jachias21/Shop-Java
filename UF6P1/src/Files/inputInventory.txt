@@ -1,2 +1,2 @@
-Product:Manzana;Wholesaler Price:10.00;Availabel:true;Stock:10; 
-Product:Fresa;Wholesaler Price:5.00;Availabel:true;Stock:20;
+Product:Manzana;Origin:Marruecos;Wholesaler Price:10.00;Availabel:true;Stock:10;Deluxe:false; 
+Product:Fresa;Origin:Portugal;Wholesaler Price:5.00;Availabel:true;Stock:20;Deluxe:false;
