@@ -32,7 +32,7 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         initComponents();
         Shop shop = new Shop();
         try {
-            shop.loadInventory();
+            shop.readInventory();
         } catch (IOException ex) {
             Logger.getLogger(ShopView.class.getName()).log(Level.SEVERE, null, ex);
         }

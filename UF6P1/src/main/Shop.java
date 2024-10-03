@@ -37,7 +37,7 @@ public class Shop {
     public static void main(String[] args) throws IOException, SQLException {
         Shop shop = new Shop();
         shop.initSession();
-        shop.loadInventory();
+        shop.readInventory();
 
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
@@ -114,8 +114,8 @@ public class Shop {
      * @throws IOException 
      */
     
-    public void loadInventory() throws IOException {
-    	//find the file (where and what's is called)
+    public void readInventory() throws IOException {
+   //find the file (where and what's is called)
    File f = new File(System.getProperty("user.dir")+File.separator+"src/Files/inputInventory.txt");
    //read the file, line by line
    FileReader fr = new FileReader(f);

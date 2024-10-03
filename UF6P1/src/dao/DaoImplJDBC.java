@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import model.Employee;
+import model.Product;
 
 public class DaoImplJDBC implements dao {
 	
@@ -47,6 +49,18 @@ public class DaoImplJDBC implements dao {
 		if (connection != null) {
 			connection.close();
 		}
+	}
+
+	@Override
+	public List<Product> getInventory() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean writeInventory(List<Product> inventory) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

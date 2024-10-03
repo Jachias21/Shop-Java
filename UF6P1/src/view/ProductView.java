@@ -204,7 +204,7 @@ public class ProductView extends javax.swing.JFrame implements ActionListener, K
             double wholesalerPrice = parseDouble(jTPrice.getText());
             int stock = Integer.parseInt(jTStock.getText());
 
-            shop.inventory.add(new Product(name, origin, new Amount(wholesalerPrice, "€"), true, stock));
+            shop.inventory.add(new Product(name, origin, new Amount(wholesalerPrice, "€"), true, stock, product));
             shop.numberProducts++;
             JOptionPane.showMessageDialog(null, "El producto ha sido añadido", "Info", JOptionPane.INFORMATION_MESSAGE);
         } else {
