@@ -36,12 +36,12 @@ public class Shop {
 
     public Shop() throws IOException, SQLException {
         cash = new Amount(150.0, "€");
-        inventory = new ArrayList<>();
+     
         sales = new ArrayList<>();
         readInventory();
     }
 
-    public static void main(String[] args) throws IOException, SQLException {
+   /* public static void main(String[] args) throws IOException, SQLException {
         Shop shop = new Shop();
         shop.initSession();
         shop.readInventory();
@@ -116,6 +116,7 @@ public class Shop {
         System.out.print("Has salido de la tienda.");
     }
 
+*/
     /**
      * load initial inventory to shop
      * @throws IOException 
@@ -124,6 +125,10 @@ public class Shop {
     
     public void readInventory() throws IOException, SQLException {
     	setInventory(shopDao.getInventory());
+    }
+    
+    public void writeInventory() throws SQLException {
+    	shopDao.writeInventory(inventory);
     }
    
     

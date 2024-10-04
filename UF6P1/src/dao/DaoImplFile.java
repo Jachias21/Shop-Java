@@ -12,6 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import model.Amount;
 import model.Employee;
 import model.Product;
@@ -33,7 +35,7 @@ public class DaoImplFile implements dao {
 	public List<Product> getInventory() throws SQLException, IOException {
 		ArrayList<Product> inventory2 = new ArrayList<>(); 
 		   //find the file (where and what's is called)
-		   File f = new File(System.getProperty("user.dir")+File.separator+"src/Files/inputInventory.txt");
+		   File f = new File(System.getProperty("user.dir")+File.separator+"Files/inputInventory.txt");
 		   //read the file, line by line
 		   FileReader fr = new FileReader(f);
 		   BufferedReader br = new BufferedReader(fr);
@@ -89,38 +91,43 @@ public class DaoImplFile implements dao {
 	}
 	
 	public boolean writeInventory(List<Product> inventory) throws SQLException {
-		//File route
-		File newFolder = new File(System.getProperty("user.dir") + File.separator + "files" + File.separator +"sales_yyyy-mm-dd.txt");
-		if(!newFolder.exists()) {
-			
-			newFolder.mkdir();
-		}
-		//Set current date & make the format
-		LocalDate currentDate = LocalDate.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-		String formatteDate = currentDate.format(formatter);
-		
-		//Set file's name
-		File inventoryFile = new File(newFolder, "inventory_" + formatteDate + ".txt");
-		
-		//Check if the files don't exists
-		if(!inventoryFile.exists()) {
-			try {
-				inventoryFile.createNewFile(); //If  don't exists create new file
-			// Can't create new file then return false	
-			} catch (IOException e) {
-				e.printStackTrace();
-				return false;
-			}
-		}
-		
-		try {
-	        FileWriter fw = new FileWriter(inventoryFile, true);
-	        PrintWriter pw = new PrintWriter(fw);
+	    // File path
+	    File newFolder = new File(System.getProperty("user.dir") + File.separator + "files");
+	    if (!newFolder.exists()) {
+	        newFolder.mkdir();  // Create the folder if it doesn't exist
+	    }
+
+	    // Set the current date and format it
+	    LocalDate currentDate = LocalDate.now();
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    String formattedDate = currentDate.format(formatter);
+
+	    // File name
+	    File inventoryFile = new File(newFolder, "inventory_" + formattedDate + ".txt");
+
+	    // Check if the file does not exist, and create it if necessary
+	    if (!inventoryFile.exists()) {
+	        try {
+	            inventoryFile.createNewFile();  // Create file if it doesn't exist
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	            return false;
+	        }
+	    } else {
+	        JOptionPane.showMessageDialog(null, "No se ha podido exportar", "Error", JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+
+	    FileWriter fw = null;
+	    PrintWriter pw = null;
+	    try {
+	        // Create FileWriter and PrintWriter objects
+	        fw = new FileWriter(inventoryFile);
+	        pw = new PrintWriter(fw);
 
 	        int index = 1;
 
-	        // Write the products & stock
+	        // Write the products and stock to the file
 	        for (Product product : inventory) {
 	            String productLine = index + ";Product:" + product.getName() + ";Stock:" + product.getStock() + ";";
 	            pw.write(productLine);
@@ -132,16 +139,28 @@ public class DaoImplFile implements dao {
 	        pw.write("Numero total de productos:" + inventory.size() + ";");
 	        pw.write("\n");
 
-	        pw.close();
-	        fw.close();
+	        // Confirmation message
+	        JOptionPane.showMessageDialog(null, "El inventario ha sido exportado", "Info", JOptionPane.INFORMATION_MESSAGE);
+	        return true;
 
 	    } catch (IOException e) {
 	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "No se ha podido exportar", "Error", JOptionPane.ERROR_MESSAGE);
 	        return false;
+
+	    } finally {
+	        // Ensure resources are closed in the finally block
+	        try {
+	            if (pw != null) pw.close();
+	            if (fw != null) fw.close();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 	    }
-		
-		return true;
 	}
+
+
+		
 
 	
 	public void disconnect() throws SQLException {
