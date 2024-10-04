@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import main.Shop;
 
 
@@ -49,6 +50,7 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         ProductView productView = new ProductView(shop, option);
         productView.setVisible(true);
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,6 +65,7 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         jBAddStock = new javax.swing.JButton();
         jBDeleteProd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jBImportInv1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,26 +100,39 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
 
         jLabel1.setText("Seleccione una opción:");
 
+        jBImportInv1.setText("0. Importar inventario");
+        jBImportInv1.setToolTipText("");
+        jBImportInv1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBImportInv1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(105, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jBCount, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBDeleteProd, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(87, 87, 87))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jBCount, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBDeleteProd, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(87, 87, 87))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jBImportInv1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBCount, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,7 +140,9 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
                 .addComponent(jBAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBDeleteProd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addGap(18, 18, 18)
+                .addComponent(jBImportInv1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -151,6 +169,15 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         openProductView();
     }//GEN-LAST:event_jBDeleteProdActionPerformed
 
+    private void jBImportInv1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBImportInv1ActionPerformed
+        // TODO add your handling code here:
+        option = 10;
+        
+        JOptionPane.showMessageDialog(null, "El inventario ha sido exportado", "Info", JOptionPane.INFORMATION_MESSAGE);
+        
+        JOptionPane.showMessageDialog(null, "No se ha podido exportar el inventario", "Error", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_jBImportInv1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -161,6 +188,7 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
     private javax.swing.JButton jBAddStock;
     private javax.swing.JButton jBCount;
     private javax.swing.JButton jBDeleteProd;
+    private javax.swing.JButton jBImportInv1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
