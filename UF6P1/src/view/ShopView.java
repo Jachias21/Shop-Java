@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
@@ -27,8 +28,10 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
     
     /**
      * Creates new form ShopView
+     * @throws SQLException 
+     * @throws IOException 
      */
-    public ShopView() {
+    public ShopView() throws SQLException, IOException {
         initComponents();
         Shop shop = new Shop();
         try {
@@ -38,13 +41,13 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         }
     }
     
-    public void openCashView() {
+    public void openCashView() throws IOException, SQLException {
         Shop shop = new Shop();
         CashView cashView = new CashView(shop);
         cashView.setVisible(true);
     }
     
-    public void openProductView() {
+    public void openProductView() throws IOException, SQLException {
         Shop shop = new Shop();
         ProductView productView = new ProductView(shop, option);
         productView.setVisible(true);
@@ -69,21 +72,36 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         jBAddProd.setText("2. Añadir producto");
         jBAddProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAddProdActionPerformed(evt);
+                try {
+					jBAddProdActionPerformed(evt);
+				} catch (IOException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
         jBCount.setText("1. Contar caja");
         jBCount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBCountActionPerformed(evt);
+                try {
+					jBCountActionPerformed(evt);
+				} catch (IOException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
         jBAddStock.setText("3. Añadir stock");
         jBAddStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAddStockActionPerformed(evt);
+                try {
+					jBAddStockActionPerformed(evt);
+				} catch (IOException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -91,7 +109,12 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         jBDeleteProd.setToolTipText("");
         jBDeleteProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBDeleteProdActionPerformed(evt);
+                try {
+					jBDeleteProdActionPerformed(evt);
+				} catch (IOException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -130,22 +153,22 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBAddProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAddProdActionPerformed
+    private void jBAddProdActionPerformed(java.awt.event.ActionEvent evt) throws IOException, SQLException {//GEN-FIRST:event_jBAddProdActionPerformed
          option = 1;
         openProductView();
     }//GEN-LAST:event_jBAddProdActionPerformed
 
-    private void jBCountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCountActionPerformed
+    private void jBCountActionPerformed(java.awt.event.ActionEvent evt) throws IOException, SQLException {//GEN-FIRST:event_jBCountActionPerformed
         openCashView();
     }//GEN-LAST:event_jBCountActionPerformed
 
-    private void jBAddStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAddStockActionPerformed
+    private void jBAddStockActionPerformed(java.awt.event.ActionEvent evt) throws IOException, SQLException {//GEN-FIRST:event_jBAddStockActionPerformed
         // TODO add your handling code here:
         option = 2;
         openProductView();
     }//GEN-LAST:event_jBAddStockActionPerformed
 
-    private void jBDeleteProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDeleteProdActionPerformed
+    private void jBDeleteProdActionPerformed(java.awt.event.ActionEvent evt) throws IOException, SQLException {//GEN-FIRST:event_jBDeleteProdActionPerformed
         // TODO add your handling code here:
         option = 9;
         openProductView();

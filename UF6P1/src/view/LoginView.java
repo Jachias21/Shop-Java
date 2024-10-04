@@ -5,6 +5,7 @@
 package view;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import main.ActionListener;
@@ -193,6 +194,9 @@ public class LoginView extends javax.swing.JFrame implements ActionListener {
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
             }
         });
@@ -252,7 +256,7 @@ public class LoginView extends javax.swing.JFrame implements ActionListener {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextPswdActionPerformed
 
-    private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_jBLoginActionPerformed
+    private void jBLoginActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, IOException {//GEN-FIRST:event_jBLoginActionPerformed
         System.out.println("view.LoginView.jBLoginActionPerformed()");
         Employee employee = new Employee(null);
 

@@ -8,7 +8,11 @@ import model.Employee;
 import model.Client;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import dao.DaoImplFile;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,17 +25,20 @@ import java.time.LocalDateTime;
 
 public class Shop {
     private Amount cash = new Amount(100.00, "€");
-    public ArrayList<Product> inventory;
+    public List<Product> inventory;
     public int numberProducts;
     private ArrayList<Sale> sales;
     int sale_num = 0;
+    private DaoImplFile shopDao = new DaoImplFile();
+    
 
     final static double TAX_RATE = 1.04;
 
-    public Shop() {
+    public Shop() throws IOException, SQLException {
         cash = new Amount(150.0, "€");
         inventory = new ArrayList<>();
         sales = new ArrayList<>();
+        readInventory();
     }
 
     public static void main(String[] args) throws IOException, SQLException {
@@ -112,61 +119,13 @@ public class Shop {
     /**
      * load initial inventory to shop
      * @throws IOException 
+     * @throws SQLException 
      */
     
-    public void readInventory() throws IOException {
-   //find the file (where and what's is called)
-   File f = new File(System.getProperty("user.dir")+File.separator+"src/Files/inputInventory.txt");
-   //read the file, line by line
-   FileReader fr = new FileReader(f);
-   BufferedReader br = new BufferedReader(fr);
+    public void readInventory() throws IOException, SQLException {
+    	setInventory(shopDao.getInventory());
+    }
    
-   String miLinea = br.readLine();
-   
-   while(miLinea != null) {
-	   String[] partes1 = miLinea.split(";");
-	   String product="";
-	   String origin="";
-	   Double wholesalerPrice = 0.00;
-	   Amount amount = new Amount(0.00, "€"); 
-	   int stock = 0;
-	   boolean available = true;
-	   boolean deluxe = false;
-	   
-	   for(int i = 0; i < partes1.length; i++) {
-		   String[] partes2 = partes1[i].split(":");
-		   switch (i) {
-		   case 0: 
-			   product = partes2[1];
-			   break;
-		   case 1:
-			   origin = partes2[1];
-			   break;
-		   case 2:
-			   wholesalerPrice = Double.parseDouble(partes2[1]);
-			   amount = new Amount(wholesalerPrice, "€");
-			   break;
-		   case 3:
-			   available = Boolean.parseBoolean(partes2[1]);
-			   break;
-		   case 4:
-			   stock = Integer.parseInt(partes2[1]);
-			   break;
-		   case 5:
-			   deluxe = Boolean.parseBoolean(partes2[1]);
-			   break;
-		   default:
-			   break;
-		   }
-		   
-	   }
-	   Product outproduct = new Product(product, origin, amount, available, stock, deluxe);
-	   inventory.add(outproduct);
-	   miLinea = br.readLine();
-   }
-   fr.close();
-   br.close();
- }
     
     /**
      * show current total cash
@@ -526,5 +485,8 @@ public class Shop {
 
         return logged;
     }
+        public void setInventory(List<Product> info) {
+            this.inventory = info;
+        } 
 
 }
