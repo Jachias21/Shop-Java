@@ -80,7 +80,7 @@ public class DaoImplFile implements dao {
 				   
 			   }
 			   
-			   Product outproduct = new Product(product, origin, amount, available, stock, deluxe);
+			   Product outproduct = new Product(product, amount, available, stock);
 			   inventory2.add(outproduct);
 			   miLinea = br.readLine();
 		   }

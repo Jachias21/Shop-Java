@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import dao.DaoImplFile;
+import dao.DaoImplXml;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,7 +30,7 @@ public class Shop {
     public int numberProducts;
     private ArrayList<Sale> sales;
     int sale_num = 0;
-    private DaoImplFile shopDao = new DaoImplFile();
+    private DaoImplXml shopDao = new DaoImplXml();
     
 
     final static double TAX_RATE = 1.04;
@@ -169,7 +170,7 @@ public class Shop {
             System.out.print("Stock: ");
             int stock = scanner.nextInt();
 
-            inventory.add(new Product(name, origin, new Amount(wholesalerPrice, "€"), true, stock, deluxe));
+            inventory.add(new Product(name, new Amount(wholesalerPrice, "€"), true, stock));
             numberProducts++;
         } else {
             System.out.print("\nEl producto ya existe en el inventario. Seleccione la opción '3. Añadir Stock'.\n\n");

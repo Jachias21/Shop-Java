@@ -30,4 +30,8 @@ public class Amount {
     public String toString() {
         return value + currency;
     }
+    
+    public static Amount valueOf(String value2) {
+    	return null;
+    }
 }

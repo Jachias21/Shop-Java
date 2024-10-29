@@ -13,7 +13,7 @@ public class Product {
     
     final static double EXPIRATION_RATE = 0.60;
     
-    public Product(String name, String origin, Amount wholesalerPrice, boolean available, int stock, boolean deluxe) {
+    public Product(String name, Amount wholesalerPrice, boolean available, int stock) {
         super();
         this.id = totalProducts + 1;
         this.name = name;
@@ -108,4 +108,5 @@ public class Product {
         return "Product --> Name = " + name + " | Origin = " + origin + " | Public Price = " + publicPrice + " | Whole Saler Price = " + wholesalerPrice
                 + " | Available = " + available + " | Stock = " + stock + " | Deluxe = " + deluxe ;
     }
+    
 }
