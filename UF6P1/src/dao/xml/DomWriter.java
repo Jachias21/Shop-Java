@@ -90,11 +90,11 @@ public class DomWriter {
 
         } catch (IOException e) {
             System.out.println("Error creating writer file");
-            JOptionPane.showMessageDialog(null, "Error al exportar el archivo", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se ha podido exportar", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } catch (TransformerException e) {
             System.out.println("Error transforming document");
-            JOptionPane.showMessageDialog(null, "Error al transformar el documento", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se ha podido transformar el documento", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
