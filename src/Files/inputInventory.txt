@@ -1,2 +1,0 @@
-Product:Manzana;Wholesaler Price:10.00;Availabel:true;Stock:10; 
-Product:Fresa;Wholesaler Price:5.00;Availabel:true;Stock:20;
