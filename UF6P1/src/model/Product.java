@@ -1,15 +1,21 @@
 package model;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name="product")
+//@XmlType(propOrder= {"id","name","wholesalerPrice","available","publicPrice","stock"})
 public class Product {
     private int id;
     private String name;
-    private String origin;
     private Amount publicPrice;
     private Amount wholesalerPrice;
     private boolean available;
     private int stock;
     private static int totalProducts;
-    private boolean deluxe;
     
     final static double EXPIRATION_RATE = 0.60;
     
@@ -17,24 +23,20 @@ public class Product {
         super();
         this.id = totalProducts + 1;
         this.name = name;
-        this.origin = origin;
         this.wholesalerPrice = wholesalerPrice;
         this.publicPrice = new Amount(0.0, ""); 
         this.publicPrice.setValue(getWholesalerPrice().getValue() * 2, null);
         this.available = available;
         this.stock = stock;
         totalProducts++;
-        this.deluxe = deluxe;
     }
-
-    public boolean isDeluxe() {
-		return deluxe;
+    
+	public Product() {
+		super();
 	}
 
-	public void setDeluxe(boolean deluxe) {
-		this.deluxe = deluxe;
-	}
 
+	//@XmlAttribute
 	public int getId() {
         return id;
     }
@@ -42,7 +44,8 @@ public class Product {
     public void setId(int id) {
         this.id = id;
     }
-
+    
+    @XmlAttribute
     public String getName() {
         return name;
     }
@@ -51,14 +54,7 @@ public class Product {
         this.name = name;
     }
     
-    public String getOrigin() {  
-        return origin;
-    }
-
-    public void setOrigin(String origin) {  
-        this.origin = origin;
-    }
-
+    //@XmlElement
     public Amount getPublicPrice() {
         return publicPrice;
     }
@@ -66,7 +62,8 @@ public class Product {
     public void setPublicPrice(Amount publicPrice) {
         this.publicPrice = publicPrice;
     }
-
+    
+   @XmlElement
     public Amount getWholesalerPrice() {
         return wholesalerPrice;
     }
@@ -74,7 +71,8 @@ public class Product {
     public void setWholesalerPrice(Amount wholesalerPrice) {
         this.wholesalerPrice = wholesalerPrice;
     }
-
+    
+   @XmlAttribute
     public boolean isAvailable() {
         return available;
     }
@@ -82,7 +80,8 @@ public class Product {
     public void setAvailable(boolean available) {
         this.available = available;
     }
-
+    
+ //   @XmlAttribute
     public int getStock() {
         return stock;
     }
@@ -90,7 +89,8 @@ public class Product {
     public void setStock(int stock) {
         this.stock = stock;
     }
-
+    
+ //   @XmlAttribute
     public static int getTotalProducts() {
         return totalProducts;
     }
@@ -105,8 +105,8 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product --> Name = " + name + " | Origin = " + origin + " | Public Price = " + publicPrice + " | Whole Saler Price = " + wholesalerPrice
-                + " | Available = " + available + " | Stock = " + stock + " | Deluxe = " + deluxe ;
+        return "Product --> Name = " + name + " | Public Price = " + publicPrice + " | Whole Saler Price = " + wholesalerPrice
+                + " | Available = " + available + " | Stock = " + stock;
     }
     
 }

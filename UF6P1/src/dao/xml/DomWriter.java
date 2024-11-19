@@ -78,7 +78,7 @@ public class DomWriter {
             LocalDate currentDate = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String formattedDate = currentDate.format(formatter);
-            File file = new File("Files/inventory_" + formattedDate + ".xml");
+            File file = new File("SaxDom/inventory_" + formattedDate + ".xml");
 
             //Write in file
             FileWriter fw = new FileWriter(file);

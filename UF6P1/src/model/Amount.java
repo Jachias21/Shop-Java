@@ -2,6 +2,10 @@ package model;
 
 import java.time.LocalDateTime;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+//@XmlRootElement(name="amount")
 public class Amount {
     private double value;
     private String currency;
@@ -10,7 +14,14 @@ public class Amount {
         this.value = value;
         this.currency = "€";
     }
+    
+    
+    public Amount() {
+		super();
+	}
 
+
+	@XmlAttribute
     public double getValue() {
         return value;
     }
@@ -18,7 +29,8 @@ public class Amount {
     public void setValue(double value, LocalDateTime saleTime) {
         this.value = value;
     }
-
+    
+    @XmlAttribute
     public String getCurrency() {
         return currency;
     }

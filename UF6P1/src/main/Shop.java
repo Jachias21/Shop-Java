@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import dao.DaoImplFile;
 import dao.DaoImplXml;
+import dao.jaxb.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,7 +31,7 @@ public class Shop {
     public int numberProducts;
     private ArrayList<Sale> sales;
     int sale_num = 0;
-    private DaoImplXml shopDao = new DaoImplXml();
+    private DaoImplJaxb shopDao = new DaoImplJaxb();
     
 
     final static double TAX_RATE = 1.04;
