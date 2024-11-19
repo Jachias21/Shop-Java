@@ -20,7 +20,6 @@ public class JaxbUnMarshaller {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             System.out.println("Unmarshalling...");
             products = (ProductList) unmarshaller.unmarshal(new File(filePath));
-            System.out.println("Unmarshalled");
         } catch (JAXBException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "No se ha podido importar", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -30,7 +29,7 @@ public class JaxbUnMarshaller {
             System.out.println("Error unmarshalling");
             JOptionPane.showMessageDialog(null, "No se ha podido transformar el documento", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            System.out.println("Unmarshalling successful");
+            System.out.println("Inventario cargado");
         }
 
         return products;
