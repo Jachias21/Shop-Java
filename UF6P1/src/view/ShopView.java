@@ -118,7 +118,7 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
 
         jLabel1.setText("Seleccione una opción:");
 
-        jBImportarInv1.setText("10. Importar archivo");
+        jBImportarInv1.setText("10. Exportar archivo");
         jBImportarInv1.setToolTipText("");
         jBImportarInv1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

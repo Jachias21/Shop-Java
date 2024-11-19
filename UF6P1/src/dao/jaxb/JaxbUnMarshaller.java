@@ -23,7 +23,7 @@ public class JaxbUnMarshaller {
             System.out.println("Unmarshalled");
         } catch (JAXBException e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "No se ha podido exportar", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se ha podido importar", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         
         if (products == null) {
@@ -31,7 +31,6 @@ public class JaxbUnMarshaller {
             JOptionPane.showMessageDialog(null, "No se ha podido transformar el documento", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
             System.out.println("Unmarshalling successful");
-            JOptionPane.showMessageDialog(null, "Archivo exportado", "Exported", JOptionPane.PLAIN_MESSAGE);
         }
 
         return products;
