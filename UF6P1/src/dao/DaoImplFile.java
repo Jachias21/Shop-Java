@@ -168,5 +168,23 @@ public class DaoImplFile implements dao {
 		
 	}
 
+	@Override
+	public boolean addProduct(Product product) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteProduct(int id) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateProduct(Product product) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 }

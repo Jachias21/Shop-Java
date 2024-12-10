@@ -1,4 +1,4 @@
-package dao.jaxb;
+package dao;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import dao.dao;
+import dao.jaxb.JaxbMarshaller;
+import dao.jaxb.JaxbUnMarshaller;
 import model.Employee;
 import model.Product;
 import model.ProductList;
@@ -30,7 +32,7 @@ public class DaoImplJaxb implements dao {
 
 	    try {
 	        JaxbUnMarshaller unmarshaller = new JaxbUnMarshaller();
-	        ProductList productList = unmarshaller.unmarshalProducts("Files/inputInventory.xml");
+	        ProductList productList = unmarshaller.unmarshalProducts("jaxb/inputInventory.xml");
 
 	        if (productList != null) {
 	            inventario = productList.getProducts();
@@ -66,6 +68,24 @@ public class DaoImplJaxb implements dao {
 	public void disconnect() throws SQLException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean addProduct(Product product) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteProduct(int id) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateProduct(Product product) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

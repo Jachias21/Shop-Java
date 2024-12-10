@@ -37,6 +37,7 @@ public class DaoImplXml implements dao {
 			SaxReader saxReader = new SaxReader();
 			parser.parse(file, saxReader);
 			inventario = saxReader.getProducts();
+			System.out.println("Inventario cargado");
 
 		} catch (ParserConfigurationException | SAXException e) {
 			System.out.println("ERROR creating the parser");
@@ -58,6 +59,24 @@ public class DaoImplXml implements dao {
 	public void disconnect() throws SQLException {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean addProduct(Product product) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteProduct(int id) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateProduct(Product product) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
