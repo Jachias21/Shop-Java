@@ -12,8 +12,10 @@ import java.util.List;
 import java.util.Scanner;
 
 import dao.DaoImplFile;
+import dao.DaoImplJDBC;
 import dao.DaoImplJaxb;
 import dao.DaoImplXml;
+import dao.dao;
 import dao.jaxb.*;
 
 import java.io.BufferedReader;
@@ -32,14 +34,13 @@ public class Shop {
     public int numberProducts;
     private ArrayList<Sale> sales;
     int sale_num = 0;
-    private DaoImplJaxb shopDao = new DaoImplJaxb();
-    
+    private DaoImplJDBC shopDao = new DaoImplJDBC();
 
     final static double TAX_RATE = 1.04;
 
     public Shop() throws IOException, SQLException {
+    	shopDao.connect();
         cash = new Amount(150.0, "€");
-     
         sales = new ArrayList<>();
         readInventory();
     }
@@ -133,6 +134,18 @@ public class Shop {
     public void writeInventory() throws SQLException {
     	shopDao.writeInventory(inventory);
     }
+    
+    public void addProduct(Product product) throws SQLException {
+    	shopDao.addProduct(product);
+    }
+    
+    public void deleteProduct(int id) throws SQLException {
+    	shopDao.deleteProduct(id);
+    }
+    
+    public void updateProduct(Product product) throws SQLException {
+    	shopDao.updateProduct(product);
+    }
    
     
     /**
@@ -146,9 +159,8 @@ public class Shop {
         return cash; 
 }
 
-    /**
-     * add a new product to inventory getting data from console
-     */
+     // add a new product to inventory getting data from console
+  
     public void addProduct() {
         if (isInventoryFull()) {
             System.out.println("No se pueden añadir más productos");

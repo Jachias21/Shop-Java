@@ -13,7 +13,7 @@ import java.util.List;
 public interface dao {
 
 	void connect() throws SQLException;
-
+	
 	Employee getEmployee(int employeeID, String password);
 
 	List<Product> getInventory() throws SQLException, FileNotFoundException, IOException;

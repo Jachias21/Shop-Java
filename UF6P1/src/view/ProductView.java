@@ -7,6 +7,8 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.SQLException;
+
 import static java.lang.Double.parseDouble;
 import main.ActionListener;
 import main.Shop;
@@ -190,63 +192,99 @@ public class ProductView extends javax.swing.JFrame implements ActionListener, K
     private void jTStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTStockActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTStockActionPerformed
-    public void addProduct(Shop shop) {
+    
+    public void addProduct(Shop shopDao) {
         if (shop.isInventoryFull()) {
             JOptionPane.showMessageDialog(null, "Inventario lleno", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         String name = jTName.getText();
-        String origin = jTName.getText(); //Aqui en vez de name seria el jTOrigin pero no puedo modificar la parte visual 
 
-        boolean product = shop.productExists(name);
+        boolean productExists = shop.productExists(name);
 
-        if (!product) {
-            double wholesalerPrice = parseDouble(jTPrice.getText());
-            int stock = Integer.parseInt(jTStock.getText());
+        if (!productExists) {
+            try {
+                double wholesalerPrice = parseDouble(jTPrice.getText());
+                int stock = Integer.parseInt(jTStock.getText());
 
-            shop.inventory.add(new Product(name, new Amount(wholesalerPrice, "€"), true, stock));
-            shop.numberProducts++;
-            JOptionPane.showMessageDialog(null, "El producto ha sido añadido", "Info", JOptionPane.INFORMATION_MESSAGE);
+                Product newProduct = new Product(name, new Amount(wholesalerPrice, "€"), true, stock);
+
+                shop.inventory.add(newProduct);
+                shop.numberProducts++;
+
+                shopDao.addProduct(newProduct);
+
+                JOptionPane.showMessageDialog(null, "El producto ha sido añadido y registrado en la base de datos", "Info", JOptionPane.INFORMATION_MESSAGE);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, introduce valores numéricos válidos para el precio y el stock", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al registrar el producto en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "El producto ya existe", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void addStock(Shop shop) {
+
+    public void addStock(Shop shopDao) {
         String name = jTName.getText();
         Product product = shop.findProduct(name);
 
         if (product != null) {
-            // ask for stock
-            int stock = Integer.parseInt(jTStock.getText());
-            int newStock = product.getStock() + stock;
-            // update stock product
-            product.setStock(newStock);
-            JOptionPane.showMessageDialog(null, "La cantidad de stock ha sido añadida", "Info", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                int stock = Integer.parseInt(jTStock.getText());
+                int newStock = product.getStock() + stock;
 
+                product.setStock(newStock);
+
+                // Actualizar el producto en la base de datos
+                shopDao.updateProduct(product);
+
+                JOptionPane.showMessageDialog(null, "La cantidad de stock ha sido añadida y actualizada en la base de datos", "Info", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, introduce un número válido para el stock", "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar el producto en la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
         } else if (shop.isInventoryFull()) {
-            JOptionPane.showMessageDialog(null, "El inventario esta lleno", "Aviso", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El inventario está lleno", "Aviso", JOptionPane.WARNING_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "No se encuentra el producto", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void deleteProduct(Shop shop) {
+
+    public void deleteProduct(Shop shopDao) {
         String name = jTName.getText();
 
+        // Encuentra el producto en la lista local
         Product product = shop.findProduct(name);
 
         if (product != null) {
-            // Aquí eliminamos el producto de la lista de productos en la instancia de la tienda
-            if (shop.inventory.remove(product)) {
-                JOptionPane.showMessageDialog(null, "Producto eliminado con exito", "Info", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "El producto no se ha podido eliminar", "Aviso", JOptionPane.WARNING_MESSAGE);
+            try {
+                // Elimina el producto de la base de datos
+                shopDao.deleteProduct(product.getId());
+
+                // Elimina el producto de la lista de productos en la instancia de la tienda
+                if (shop.inventory.remove(product)) {
+                    JOptionPane.showMessageDialog(null, "Producto eliminado con éxito", "Info", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "El producto no se ha podido eliminar", "Aviso", JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (SQLException e) {
+                // Manejo de errores de SQL
+                JOptionPane.showMessageDialog(null, "Error al eliminar el producto de la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             }
         } else {
             JOptionPane.showMessageDialog(null, "No se encuentra producto con ese nombre", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     /**
      * @param args the command line arguments
      */

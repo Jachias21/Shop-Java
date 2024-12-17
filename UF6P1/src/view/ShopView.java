@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 import main.Shop;
 
 
@@ -124,10 +126,12 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
 					jBImportarInv1ActionPerformed(evt);
+					JOptionPane.showMessageDialog(null, "Inventario exportado en la base de datos", "Info", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+               
             }
         });
 

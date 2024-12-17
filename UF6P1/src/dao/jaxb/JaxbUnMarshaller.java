@@ -29,7 +29,7 @@ public class JaxbUnMarshaller {
             System.out.println("Error unmarshalling");
             JOptionPane.showMessageDialog(null, "No se ha podido transformar el documento", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            System.out.println("Inventario cargado");
+            //System.out.println("Inventario cargado");
         }
 
         return products;
