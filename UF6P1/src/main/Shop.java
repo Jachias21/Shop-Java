@@ -139,8 +139,8 @@ public class Shop {
     	shopDao.addProduct(product);
     }
     
-    public void deleteProduct(int id) throws SQLException {
-    	shopDao.deleteProduct(id);
+    public void deleteProduct(String name) throws SQLException {
+    	shopDao.deleteProduct(name);
     }
     
     public void updateProduct(Product product) throws SQLException {

@@ -68,7 +68,7 @@ public class DaoImplXml implements dao {
 	}
 
 	@Override
-	public boolean deleteProduct(int id) throws SQLException {
+	public boolean deleteProduct(String name) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
 	}

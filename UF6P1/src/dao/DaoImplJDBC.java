@@ -28,7 +28,7 @@ public class DaoImplJDBC implements dao {
 	public static final String GET_INVENTORY = "SELECT * FROM inventory";
 	public static final String ADD_PRODUCT = "INSERT INTO inventory (id, name, wholesaler_price, available, stock) "
 			+ "VALUES (?, ?, ?, ?, ?)";
-	public static final String DELETE_PRODUCT = "DELETE FROM inventory WHERE id = ?";
+	public static final String DELETE_PRODUCT = "DELETE FROM inventory WHERE name = ?";
 	public static final String UPDATE_PRODUCT = "UPDATE inventory SET stock = ?" + " WHERE name = ?";
 	public static final String WRITE_INVENTORY = "INSERT INTO historical_inventory (id_product, name, wholesaler_price, available, stock, created_at)";
 
@@ -102,9 +102,9 @@ public class DaoImplJDBC implements dao {
 	}
 
 	@Override
-	public boolean deleteProduct(int id) throws SQLException {
+	public boolean deleteProduct(String name) throws SQLException {
 		try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_PRODUCT)) {
-			preparedStatement.setInt(1, id);
+			preparedStatement.setString(1, name);
 			preparedStatement.executeUpdate();
 		}
 		return true;

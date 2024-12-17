@@ -267,7 +267,7 @@ public class ProductView extends javax.swing.JFrame implements ActionListener, K
         if (product != null) {
             try {
                 // Elimina el producto de la base de datos
-                shopDao.deleteProduct(product.getId());
+                shopDao.deleteProduct(product.getName());
 
                 // Elimina el producto de la lista de productos en la instancia de la tienda
                 if (shop.inventory.remove(product)) {

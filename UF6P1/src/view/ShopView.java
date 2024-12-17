@@ -128,7 +128,7 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
 					jBImportarInv1ActionPerformed(evt);
 					JOptionPane.showMessageDialog(null, "Inventario exportado en la base de datos", "Info", JOptionPane.INFORMATION_MESSAGE);
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Error al exportar inventario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 					e.printStackTrace();
 				}
                
