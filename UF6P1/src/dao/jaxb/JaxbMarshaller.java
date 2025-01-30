@@ -8,22 +8,22 @@ import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import model.ProductList;
+import model.ProductHistory;
 
 
 public class JaxbMarshaller {
 	
   
-    public void init (ProductList inventory) {
+    public void init (ProductHistory inventory) {
 		try {
 			LocalDate currentDate = LocalDate.now();
 	    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	    	String formattedDate = currentDate.format(formatter);
 	    	File file = new File("JaxB/inventory_" + formattedDate + ".xml");
-			JAXBContext context = JAXBContext.newInstance(ProductList.class);
+			JAXBContext context = JAXBContext.newInstance(ProductHistory.class);
 			Marshaller marshaller = context.createMarshaller();
 			System.out.println("marshalling... ");
-			ProductList products = inventory;
+			ProductHistory products = inventory;
 			marshaller.marshal(products, file);
 			System.out.println("marshalled");
             JOptionPane.showMessageDialog(null, "Archivo exportado", "Exported", JOptionPane.INFORMATION_MESSAGE);

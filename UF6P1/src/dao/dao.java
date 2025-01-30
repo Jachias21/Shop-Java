@@ -22,10 +22,11 @@ public interface dao {
 
 	boolean addProduct(Product product) throws SQLException;
 
-	boolean deleteProduct(String name) throws SQLException;
+	boolean deleteProduct(Product product) throws SQLException;
 
 	boolean updateProduct(Product product) throws SQLException;
 
 	void disconnect() throws SQLException;
+
 
 }

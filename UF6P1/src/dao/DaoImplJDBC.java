@@ -127,4 +127,10 @@ public class DaoImplJDBC implements dao {
 		}
 	}
 
+	@Override
+	public boolean deleteProduct(Product product) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

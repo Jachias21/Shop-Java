@@ -15,7 +15,6 @@ public class Amount {
         this.currency = "€";
     }
     
-    
     public Amount() {
 		super();
 	}
@@ -26,7 +25,7 @@ public class Amount {
         return value;
     }
 
-    public void setValue(double value, LocalDateTime saleTime) {
+    public void setValue(double value, String string) {
         this.value = value;
     }
     

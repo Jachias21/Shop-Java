@@ -8,18 +8,18 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import model.Product;
-import model.ProductList;
+import model.ProductHistory;
 
 public class JaxbUnMarshaller {
 
-    public ProductList unmarshalProducts(String filePath) {
-        ProductList products = null;
+    public ProductHistory unmarshalProducts(String filePath) {
+        ProductHistory products = null;
 
         try {
-            JAXBContext context = JAXBContext.newInstance(ProductList.class);
+            JAXBContext context = JAXBContext.newInstance(ProductHistory.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
             System.out.println("Unmarshalling...");
-            products = (ProductList) unmarshaller.unmarshal(new File(filePath));
+            products = (ProductHistory) unmarshaller.unmarshal(new File(filePath));
         } catch (JAXBException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "No se ha podido importar", "ERROR", JOptionPane.ERROR_MESSAGE);

@@ -15,6 +15,7 @@ import dao.DaoImplFile;
 import dao.DaoImplJDBC;
 import dao.DaoImplJaxb;
 import dao.DaoImplXml;
+import dao.DaoImplHibernate;
 import dao.dao;
 import dao.jaxb.*;
 
@@ -34,7 +35,7 @@ public class Shop {
     public int numberProducts;
     private ArrayList<Sale> sales;
     int sale_num = 0;
-    private DaoImplJDBC shopDao = new DaoImplJDBC();
+    private DaoImplHibernate shopDao = new DaoImplHibernate();
 
     final static double TAX_RATE = 1.04;
 
@@ -45,11 +46,10 @@ public class Shop {
         readInventory();
     }
 
-   /* public static void main(String[] args) throws IOException, SQLException {
+    /*public static void main(String[] args) throws IOException, SQLException {
         Shop shop = new Shop();
         shop.initSession();
         shop.readInventory();
-
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
         boolean exit = false;
@@ -120,13 +120,11 @@ public class Shop {
         System.out.print("Has salido de la tienda.");
     }
 
-*/
     /**
      * load initial inventory to shop
      * @throws IOException 
      * @throws SQLException 
      */
-    
     public void readInventory() throws IOException, SQLException {
     	setInventory(shopDao.getInventory());
     }
@@ -139,8 +137,8 @@ public class Shop {
     	shopDao.addProduct(product);
     }
     
-    public void deleteProduct(String name) throws SQLException {
-    	shopDao.deleteProduct(name);
+    public boolean deleteProduct(Product product) throws SQLException {
+    	return shopDao.deleteProduct(product);
     }
     
     public void updateProduct(Product product) throws SQLException {

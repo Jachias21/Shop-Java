@@ -51,6 +51,11 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         ProductView productView = new ProductView(shop, option);
         productView.setVisible(true);
     }
+    public void openInventoryView() throws SQLException, IOException {
+        Shop shop = new Shop();
+        InventoryView inventoryView = new InventoryView(shop);
+        inventoryView.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,6 +71,7 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         jBDeleteProd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jBImportarInv1 = new javax.swing.JButton();
+        jBSeeInventory = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,18 +126,24 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
 
         jLabel1.setText("Seleccione una opción:");
 
-        jBImportarInv1.setText("10. Exportar archivo");
+        jBImportarInv1.setText("10. Importar archivo");
         jBImportarInv1.setToolTipText("");
         jBImportarInv1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBImportarInv1ActionPerformed(evt);
+            }
+        });
+
+        jBSeeInventory.setText("Ver Inventario");
+        jBSeeInventory.setToolTipText("");
+        jBSeeInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
-					jBImportarInv1ActionPerformed(evt);
-					JOptionPane.showMessageDialog(null, "Inventario exportado en la base de datos", "Info", JOptionPane.INFORMATION_MESSAGE);
-				} catch (SQLException e) {
-					JOptionPane.showMessageDialog(null, "Error al exportar inventario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					jBSeeInventoryActionPerformed(evt);
+				} catch (SQLException | IOException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-               
             }
         });
 
@@ -139,19 +151,20 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(105, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jBCount, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBDeleteProd, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(87, 87, 87))
+                        .addComponent(jLabel1)
+                        .addGap(184, 184, 184))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jBImportarInv1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jBImportarInv1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                            .addComponent(jBDeleteProd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBAddStock, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBAddProd, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBCount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBSeeInventory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(114, 114, 114))))
         );
         layout.setVerticalGroup(
@@ -160,16 +173,18 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBCount, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBCount, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBAddProd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBAddStock, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBDeleteProd, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBImportarInv1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addComponent(jBDeleteProd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jBSeeInventory, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBImportarInv1)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -196,13 +211,22 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
         openProductView();
     }//GEN-LAST:event_jBDeleteProdActionPerformed
 
-    private void jBImportarInv1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_jBImportarInv1ActionPerformed  
-            // TODO add your handling code here:
-            tienda.writeInventory();
-      
-           
-    }//GEN-LAST:event_jBImportarInv1ActionPerformed
+    private void jBSeeInventoryActionPerformed(java.awt.event.ActionEvent evt) throws SQLException, IOException {//GEN-FIRST:event_jBSeeInventoryActionPerformed
+        // TODO add your handling code here:
+        openInventoryView();
+    }//GEN-LAST:event_jBSeeInventoryActionPerformed
 
+    private void jBImportarInv1ActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+        try {
+            tienda.writeInventory();
+            JOptionPane.showMessageDialog(null, "Inventario importado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al importar el inventario: ", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+ 
     /**
      * @param args the command line arguments
      */
@@ -214,6 +238,7 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
     private javax.swing.JButton jBCount;
     private javax.swing.JButton jBDeleteProd;
     private javax.swing.JButton jBImportarInv1;
+    private javax.swing.JButton jBSeeInventory;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 

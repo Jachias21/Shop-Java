@@ -10,7 +10,7 @@ import dao.jaxb.JaxbMarshaller;
 import dao.jaxb.JaxbUnMarshaller;
 import model.Employee;
 import model.Product;
-import model.ProductList;
+import model.ProductHistory;
 
 public class DaoImplJaxb implements dao {
 
@@ -32,7 +32,7 @@ public class DaoImplJaxb implements dao {
 
 	    try {
 	        JaxbUnMarshaller unmarshaller = new JaxbUnMarshaller();
-	        ProductList productList = unmarshaller.unmarshalProducts("jaxb/inputInventory.xml");
+	        ProductHistory productList = unmarshaller.unmarshalProducts("jaxb/inputInventory.xml");
 
 	        if (productList != null) {
 	            inventario = productList.getProducts();
@@ -52,7 +52,7 @@ public class DaoImplJaxb implements dao {
 	@Override
 	public boolean writeInventory(List<Product> inventory) throws SQLException {
 	    try {
-	        ProductList productList = new ProductList(new ArrayList<>(inventory));
+	        ProductHistory productList = new ProductHistory(new ArrayList<>(inventory));
 	        JaxbMarshaller marshaller = new JaxbMarshaller();
 	        marshaller.init(productList);
 	        return true;
@@ -84,6 +84,12 @@ public class DaoImplJaxb implements dao {
 
 	@Override
 	public boolean updateProduct(Product product) throws SQLException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteProduct(Product product) throws SQLException {
 		// TODO Auto-generated method stub
 		return false;
 	}

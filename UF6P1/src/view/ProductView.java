@@ -205,10 +205,10 @@ public class ProductView extends javax.swing.JFrame implements ActionListener, K
 
         if (!productExists) {
             try {
-                double wholesalerPrice = parseDouble(jTPrice.getText());
+                double price = Double.parseDouble(jTPrice.getText());
                 int stock = Integer.parseInt(jTStock.getText());
 
-                Product newProduct = new Product(name, new Amount(wholesalerPrice, "€"), true, stock);
+                Product newProduct = new Product(name,true, stock, price);
 
                 shop.inventory.add(newProduct);
                 shop.numberProducts++;
@@ -259,21 +259,27 @@ public class ProductView extends javax.swing.JFrame implements ActionListener, K
 
 
     public void deleteProduct(Shop shopDao) {
-        String name = jTName.getText();
+        String name = jTName.getText().trim(); // Elimina espacios en blanco
 
-        // Encuentra el producto en la lista local
+        if (name.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un nombre de producto", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         Product product = shop.findProduct(name);
 
         if (product != null) {
             try {
                 // Elimina el producto de la base de datos
-                shopDao.deleteProduct(product.getName());
-
-                // Elimina el producto de la lista de productos en la instancia de la tienda
-                if (shop.inventory.remove(product)) {
-                    JOptionPane.showMessageDialog(null, "Producto eliminado con éxito", "Info", JOptionPane.INFORMATION_MESSAGE);
+                if (shopDao.deleteProduct(product)) {  // Ahora pasamos el objeto Product
+                    // Elimina el producto de la lista de productos en la instancia de la tienda
+                    if (shop.inventory.remove(product)) {
+                        JOptionPane.showMessageDialog(null, "Producto eliminado con éxito", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El producto no se ha podido eliminar de la lista local", "Aviso", JOptionPane.WARNING_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "El producto no se ha podido eliminar", "Aviso", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "No se pudo eliminar el producto de la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (SQLException e) {
                 // Manejo de errores de SQL
@@ -284,6 +290,7 @@ public class ProductView extends javax.swing.JFrame implements ActionListener, K
             JOptionPane.showMessageDialog(null, "No se encuentra producto con ese nombre", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     /**
      * @param args the command line arguments
