@@ -126,7 +126,7 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
 
         jLabel1.setText("Seleccione una opción:");
 
-        jBImportarInv1.setText("10. Importar archivo");
+        jBImportarInv1.setText("10. Exportar archivo");
         jBImportarInv1.setToolTipText("");
         jBImportarInv1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,9 +219,9 @@ public class ShopView extends javax.swing.JFrame implements ActionListener, KeyL
     private void jBImportarInv1ActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         try {
             tienda.writeInventory();
-            JOptionPane.showMessageDialog(null, "Inventario importado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Inventario exportado con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al importar el inventario: ", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error al exportado el inventario: ", "Error", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
