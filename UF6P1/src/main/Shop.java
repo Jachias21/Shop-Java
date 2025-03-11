@@ -14,6 +14,7 @@ import java.util.Scanner;
 import dao.DaoImplFile;
 import dao.DaoImplJDBC;
 import dao.DaoImplJaxb;
+import dao.DaoImplMongoDb;
 import dao.DaoImplXml;
 import dao.DaoImplHibernate;
 import dao.dao;
@@ -35,7 +36,7 @@ public class Shop {
     public int numberProducts;
     private ArrayList<Sale> sales;
     int sale_num = 0;
-    private DaoImplHibernate shopDao = new DaoImplHibernate();
+    private DaoImplMongoDb shopDao = new DaoImplMongoDb();
 
     final static double TAX_RATE = 1.04;
 

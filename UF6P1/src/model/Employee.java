@@ -5,13 +5,15 @@ import main.Logable;
 import java.sql.SQLException;
 
 import dao.DaoImplJDBC;
+import dao.DaoImplMongoDb;
 import dao.dao;
 
 public class Employee extends Person implements Logable {
 	
     public Employee(String name) {
 		super(name);
-		this.dao = new DaoImplJDBC(); // Asignar a atributo dao un objeto del constructor DaoImplJDBC
+		// this.dao = new DaoImplJDBC(); // Asignar a atributo dao un objeto del constructor DaoImplJDBC
+		this.dao = new DaoImplMongoDb();
 
 	}
     private dao dao; 
